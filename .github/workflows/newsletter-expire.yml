@@ -1,0 +1,38 @@
+name: Remove expired newsletter pictures
+
+# Newsletter pictures live 30 days (Christos, 11/11/2026): orOS Newsletter
+# copies them into the e-mail; an old MailerLite e-mail may show nothing.
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  expire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Delete pictures added more than 30 days ago
+        run: |
+          set -e
+          cutoff=$(date -u -d '30 days ago' +%s)
+          gone=0
+          for f in newsletter/*; do
+            [ -f "$f" ] || continue
+            added=$(git log --diff-filter=A --format=%ct -1 -- "$f")
+            if [ -n "$added" ] && [ "$added" -lt "$cutoff" ]; then
+              git rm -q -- "$f"
+              gone=$((gone + 1))
+            fi
+          done
+          if [ "$gone" -gt 0 ]; then
+            git -c user.name="github-actions[bot]" -c user.email="41898499+github-actions[bot]@users.noreply.github.com" \
+              commit -qm "Remove $gone expired newsletter picture(s)"
+            git push
+          fi
+          echo "removed: $gone"

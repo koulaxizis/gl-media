@@ -16,7 +16,7 @@ Public URL patterns: `https://koulaxizis.github.io/gl-media/videos/<file>.mp4` �
 
 - Only material that is published on our social channels anyway goes here. Nothing private, no source files.
 - A video is deleted 30 days after its post was published (the routine that adds videos also removes expired ones).
-- Newsletter pictures are not deleted automatically: MailerLite e-mails load them every time they are opened.
+- A newsletter picture is deleted 30 days after it was added (workflow `newsletter-expire.yml`, daily). orOS Newsletter has copied it into the e-mail by then.
 - Files are added by the Instagram/TikTok routine of the Γλαρόλυκοι Project; no manual edits needed.
 
 © glarolykoi.net

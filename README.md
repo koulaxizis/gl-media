@@ -7,14 +7,16 @@ Buffer publishes our TikTok and YouTube Shorts posts by fetching the video from 
 ## Layout
 
 - `videos/YYYY-MM-DD_<slug>.mp4` — the 9:16 video of each social post (1080×1920, H.264/AAC).
+- `newsletter/YYYY-MM-<slug>.(jpg|png|webp)` — pictures of our newsletters (posters, covers). orOS Newsletter copies them into the e-mail; MailerLite e-mails load them from here.
 - `.nojekyll` — serve files as they are.
 
-Public URL pattern: `https://koulaxizis.github.io/gl-media/videos/<file>.mp4`
+Public URL patterns: `https://koulaxizis.github.io/gl-media/videos/<file>.mp4` · `https://koulaxizis.github.io/gl-media/newsletter/<file>`
 
 ## Rules
 
 - Only material that is published on our social channels anyway goes here. Nothing private, no source files.
 - A video is deleted 30 days after its post was published (the routine that adds videos also removes expired ones).
+- Newsletter pictures are not deleted automatically: MailerLite e-mails load them every time they are opened.
 - Files are added by the Instagram/TikTok routine of the Γλαρόλυκοι Project; no manual edits needed.
 
 © glarolykoi.net
